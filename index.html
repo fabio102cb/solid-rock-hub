@@ -1,49 +1,31 @@
-<!DOCTYPE html>
-<html lang="it">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solid Rock - Wear OS Hub</title>
-    <style>
-        :root {
-            --bg-gradient: linear-gradient(135deg, #0b0d12 0%, #131722 100%);
-            --accent-color: #2563eb;
-            --accent-hover: #1d4ed8;
-            --full-color: #f59e0b;
-            --card-bg: rgba(255, 255, 255, 0.03);
-            --card-border: rgba(255, 255, 255, 0.07);
-            --text-main: #f3f4f6;
-            --text-muted: #9ca3af;
-        }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: '-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
-        body { background: var(--bg-gradient); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 40px 20px; overflow-x: hidden; }
-        .container { max-width: 550px; width: 100%; z-index: 10; display: flex; flex-direction: column; }
-        .brand-header { text-align: center; margin-bottom: 30px; width: 100%; }
-        .brand-logo { width: 95px; height: 95px; border-radius: 50%; margin: 0 auto 15px; display: block; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 2px solid var(--card-border); }
-        h1 { font-size: 2.2rem; font-weight: 800; letter-spacing: -0.04em; margin-bottom: 8px; color: #ffffff; }
-        .subtitle { color: var(--text-muted); font-size: 1rem; line-height: 1.5; }
-        .video-container { position: relative; width: 100%; padding-bottom: 177.77%; height: 0; border-radius: 28px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.6); border: 1px solid var(--card-border); margin-bottom: 30px; background: #000; }
-        .video-container video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
-        .section-title { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-muted); margin: 25px 0 12px 5px; font-weight: 700; text-align: left; }
-        .features-grid { background: var(--card-bg); border: 1px solid var(--card-border); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-radius: 28px; padding: 22px; margin-bottom: 25px; box-shadow: 0 15px 35px rgba(0,0,0,0.3); text-align: left; }
-        .feature-item { display: flex; align-items: flex-start; gap: 14px; padding: 12px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.04); font-size: 0.95rem; line-height: 1.4; }
-        .feature-item:last-child { border-bottom: none; }
-        .icon-wrapper { font-size: 1.2rem; min-width: 24px; text-align: center; }
-        .feature-text { display: flex; flex-direction: column; }
-        .feature-text strong { color: #ffffff; margin-bottom: 2px; }
-        .feature-text span { color: var(--text-muted); font-size: 0.85rem; }
-        .badge-full { display: inline-flex; align-items: center; gap: 4px; background: rgba(245, 158, 11, 0.1); color: var(--full-color); padding: 2px 8px; border-radius: 8px; font-size: 0.75rem; font-weight: 600; margin-top: 6px; width: fit-content; }
-        .requirements-box { background: rgba(255, 255, 255, 0.01); border: 1px dashed var(--card-border); border-radius: 20px; padding: 16px; font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; text-align: left; margin-bottom: 30px; }
-        .main-cta { background: var(--accent-color); color: white; display: flex; align-items: center; justify-content: center; gap: 12px; padding: 18px; border-radius: 20px; text-decoration: none; font-weight: 600; font-size: 1.1rem; margin-bottom: 15px; transition: transform 0.2s, background-color 0.2s; box-shadow: 0 8px 24px rgba(37, 99, 235, 0.25); text-align: center; }
-        .main-cta:hover { background: var(--accent-hover); transform: translateY(-2px); }
-        .secondary-cta { background: rgba(255, 255, 255, 0.04); border: 1px solid var(--card-border); color: #ffffff; display: flex; align-items: center; justify-content: center; gap: 12px; padding: 16px; border-radius: 20px; text-decoration: none; font-weight: 500; font-size: 1rem; margin-bottom: 15px; transition: background-color 0.2s; text-align: center; }
-        .secondary-cta:hover { background: rgba(255, 255, 255, 0.08); }
-        .pdf-cta { background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.2); color: #f87171; display: flex; align-items: center; justify-content: center; gap: 12px; padding: 16px; border-radius: 20px; text-decoration: none; font-weight: 500; font-size: 1rem; margin-bottom: 15px; transition: background-color 0.2s; text-align: center; }
-        .pdf-cta:hover { background: rgba(239, 68, 68, 0.2); }
-        footer { text-align: center; margin-top: 40px; font-size: 0.8rem; color: var(--text-muted); line-height: 1.4; }
-    </style>
-</head>
-<body>
+        <!-- INIZIO GRIGLIA CARATTERISTICHE COMPLETA -->
+        <div class="section-title">SUL QUADRANTE</div>
+        <div class="features-grid">
+            <div class="feature-item">
+                <div class="icon-wrapper">⌚</div>
+                <div class="feature-text">
+                    <span style="display: block; margin-bottom: 5px;">• Ora grande (anche LED Board e Stylus), data, foto del mittente o icona dell'app (Outlook, Wallet, Gmail…).</span>
+                    <span style="display: block; margin-bottom: 5px;">• Testo scorrevole con le notifiche (mittente e messaggio, «1 di 2»).</span>
+                    <span style="display: block; margin-bottom: 5px;">• Riga meteo completa: temperature, pioggia, percepita, umidità, pressione con tendenza, vento, UV, visibilità, neve, aria e pollini.</span>
+                    <span style="display: block; margin-bottom: 0px;">• Batteria, passi, sveglia ed eventi del calendario; icone rapide: microfono, un'app a scelta, impostazioni.</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-title">MESSAGGI</div>
+        <div class="features-grid">
+            <div class="feature-item">
+                <div class="icon-wrapper">💬</div>
+                <div class="feature-text">
+                    <span style="display: block; margin-bottom: 5px;">• Pagina del messaggio con foto subito sotto il nome (zoom), cronologia della chat in pillole e scorrimento ‹ ›.</span>
+                    <span style="display: block; margin-bottom: 5px;">• Risposte rapide, dettatura, tastiera, voce; risposta anche a messaggio già risposto.</span>
+                    <span style="display: block; margin-bottom: 5px;">• Anteprime di PDF, Word, Excel, PowerPoint, OpenDocument, CSV e RTF; video; lettura ad alta voce.</span>
+                    <span style="display: block; margin-bottom: 5px;">• Trascrizione automatica dei vocali WhatsApp; APK ricevuti in chat: «📦 Installa sull'orologio».</span>
+                    <span style="display: block; margin-bottom: 0px;">• Telegram diretto (due account): risposte e vocali nativi; foto, video e APK senza aprire la chat.</span>
+                </div>
+            </div>
+        </div>
+
 
     <div class="container">
         <!-- HEADER CON IL TUO NUOVO LOGO -->
