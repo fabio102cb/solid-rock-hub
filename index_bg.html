@@ -1,1 +1,202 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solid Rock - Wear OS Hub</title>
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #0b0d12 0%, #131722 100%);
+            --accent-color: #2563eb;
+            --accent-hover: #1d4ed8;
+            --full-color: #f59e0b;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --card-border: rgba(255, 255, 255, 0.07);
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: '-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+        body { background: var(--bg-gradient); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 40px 20px; overflow-x: hidden; }
+        .container { max-width: 550px; width: 100%; z-index: 10; display: flex; flex-direction: column; }
+        .brand-header { text-align: center; margin-bottom: 30px; width: 100%; }
+        .brand-logo { width: 95px; height: 95px; border-radius: 50%; margin: 0 auto 15px; display: block; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 2px solid var(--card-border); }
+        h1 { font-size: 2.2rem; font-weight: 800; letter-spacing: -0.04em; margin-bottom: 8px; color: #ffffff; }
+        .subtitle { color: var(--text-muted); font-size: 1rem; line-height: 1.5; }
+        .video-container { position: relative; width: 100%; padding-bottom: 177.77%; height: 0; border-radius: 28px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.6); border: 1px solid var(--card-border); margin-bottom: 30px; background: #000; z-index: 5; }
+        .video-container video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
+        .section-title { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-muted); margin: 25px 0 12px 5px; font-weight: 700; text-align: left; }
+        .features-grid { background: var(--card-bg); border: 1px solid var(--card-border); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-radius: 28px; padding: 22px; margin-bottom: 25px; box-shadow: 0 15px 35px rgba(0,0,0,0.3); text-align: left; }
+        .feature-item { display: flex; align-items: flex-start; gap: 14px; padding: 12px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.04); font-size: 0.95rem; line-height: 1.4; }
+        .feature-item:last-child { border-bottom: none; }
+        .icon-wrapper { font-size: 1.2rem; min-width: 24px; text-align: center; }
+        .feature-text { display: flex; flex-direction: column; }
+        .feature-text strong { color: #ffffff; margin-bottom: 2px; }
+        .feature-text span { color: var(--text-muted); font-size: 0.85rem; }
+        .badge-full { display: inline-flex; align-items: center; gap: 4px; background: rgba(245, 158, 11, 0.1); color: var(--full-color); padding: 2px 8px; border-radius: 8px; font-size: 0.75rem; font-weight: 600; margin-top: 6px; width: fit-content; }
+        .requirements-box { background: rgba(255, 255, 255, 0.01); border: 1px dashed var(--card-border); border-radius: 20px; padding: 16px; font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; text-align: left; margin-bottom: 30px; }
+        .main-cta { background: var(--accent-color); color: white; display: flex; align-items: center; justify-content: center; gap: 12px; padding: 18px; border-radius: 20px; text-decoration: none; font-weight: 600; font-size: 1.1rem; margin-bottom: 15px; transition: transform 0.2s, background-color 0.2s; box-shadow: 0 8px 24px rgba(37, 99, 235, 0.25); text-align: center; }
+        .main-cta:hover { background: var(--accent-hover); transform: translateY(-2px); }
+        .secondary-cta { background: rgba(255, 255, 255, 0.04); border: 1px solid var(--card-border); color: #ffffff; display: flex; align-items: center; justify-content: center; gap: 12px; padding: 16px; border-radius: 20px; text-decoration: none; font-weight: 500; font-size: 1rem; margin-bottom: 15px; transition: background-color 0.2s; text-align: center; }
+        .secondary-cta:hover { background: rgba(255, 255, 255, 0.08); }
+        .pdf-cta { background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.2); color: #f87171; display: flex; align-items: center; justify-content: center; gap: 12px; padding: 16px; border-radius: 20px; text-decoration: none; font-weight: 500; font-size: 1rem; margin-bottom: 15px; transition: background-color 0.2s; text-align: center; }
+        .pdf-cta:hover { background: rgba(239, 68, 68, 0.2); }
+        
+        .lang-selector-container { width: 100%; max-width: 550px; display: flex; justify-content: flex-end; margin-bottom: 15px; position: relative; z-index: 9999 !important; }
+        .lang-dropdown { position: relative; display: inline-block; }
+        .lang-dropbtn { background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.15); color: var(--text-main); padding: 10px 16px; font-size: 0.9rem; font-weight: 600; border-radius: 14px; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: background 0.2s; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+        .lang-dropbtn:hover { background: rgba(255, 255, 255, 0.12); }
+        .lang-dropdown-content { display: none; position: absolute; right: 0; background: #0f121d; min-width: 170px; box-shadow: 0 15px 35px rgba(0,0,0,0.6); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 14px; padding: 6px; margin-top: 6px; z-index: 99999 !important; }
+        .lang-dropdown-content a { color: var(--text-main); padding: 10px 12px; text-decoration: none; display: flex; align-items: center; gap: 10px; font-size: 0.9rem; border-radius: 10px; transition: background 0.2s; }
+        .lang-dropdown-content a:hover { background: rgba(255, 255, 255, 0.08); }
+        .lang-dropdown:hover .lang-dropdown-content { display: block; }
+    </style>
+</head>
+<body>
+
+    <div class="lang-selector-container" style="margin-top: 20px;">
+        <div class="lang-dropdown">
+            <button class="lang-dropbtn">🇧🇬 Български ▾</button>
+            <div class="lang-dropdown-content">
+                <a href="index.html">🇮🇹 Italiano</a>
+                <a href="index_en.html">🇬🇧 English</a>
+                <a href="index_es.html">🇪🇸 Español</a>
+                <a href="index_fr.html">🇫🇷 Français</a>
+                <a href="index_pt.html">🇵🇹 Português</a>
+                <a href="index_de.html">🇩🇪 Deutsch</a>
+                <a href="index_ru.html">🇷🇺 Русский</a>
+                <a href="index_tr.html">🇹🇷 Türkçe</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- BRAND HEADER BULGARIAN -->
+        <div class="brand-header">
+            <img src="logo_solid_rock.png" alt="Solid Rock Logo" class="brand-logo">
+            <h1>Solid Rock</h1>
+            <p class="subtitle">Автономна екосистема за известия, движещ се текст и персонализирани мелодии (използва същите като вашия телефон) за вашия смарт часовник.</p>
+        </div>
+
+        <div class="video-container">
+            <video src="video_presentazione.mp4" autoplay loop muted playsinline></video>
+        </div>
+
+        <div class="requirements-box">
+            <strong>⚙️ Системни изисквания:</strong><br>
+            Съвместим с часовници с **Wear OS 5 и по-нова версия** (напр. актуализирани Galaxy Watch 4/5/6/7/Ultra, Pixel Watch 2/3), сдвоени с телефони с **Android 8 или по-нова версия**. Не е съвместим с iPhone, Tizen или HarmonyOS.
+        </div>
+
+        <div class="section-title">НА ЦИФЕРБЛАТА</div>
+        <div class="features-grid">
+            <div class="feature-item">
+                <div class="icon-wrapper">⌚</div>
+                <div class="feature-text">
+                    <span style="display: block; margin-bottom: 5px;">• Голям часовник (включително стилове LED Board и Stylus), дата, снимка на подателя или икона на приложението (Outlook, Wallet, Gmail…).</span>
+                    <span style="display: block; margin-bottom: 5px;">• Движещ се текст с известия (подател и съобщение, „1 от 2“).</span>
+                    <span style="display: block; margin-bottom: 5px;">• Пълен ред за времето: температура, дъжд, усещане за температура, влажност, налягане с тенденция, вятър, УВ индекс, видимост, сняг, качество на въздуха и полени.</span>
+                    <span style="display: block; margin-bottom: 0px;">• Батерия на часовника, стъпки, будилник и събития от календара; бързи икони: микрофон, пряк път до избрано приложение, настройки.</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-title">СЪОБЩЕНИЯ</div>
+        <div class="features-grid">
+            <div class="feature-item">
+                <div class="icon-wrapper">💬</div>
+                <div class="feature-text">
+                    <span style="display: block; margin-bottom: 5px;">• Страница за съобщение със снимка точно под името (мащабиране), хронология на чата в балончета и стрелки за навигация ‹ ›.</span>
+                    <span style="display: block; margin-bottom: 5px;">• Бързи отговори, диктовка, клавиатура, гласово въвеждане; опция за повторен отговор на вече отговорени съобщения.</span>
+                    <span style="display: block; margin-bottom: 5px;">• Преглед на PDF, Word, Excel, PowerPoint, OpenDocument, CSV и RTF файлове; възпроизвеждане на видео; четене на текст с глас.</span>
+                    <span style="display: block; margin-bottom: 5px;">• Автоматична транскрипция на гласови съобщения в WhatsApp; APK файлове, получени в чата: „📦 Инсталиране на часовника“.</span>
+                    <span style="display: block; margin-bottom: 0px;">• Директна връзка с Telegram (два акаунта): нативни отговори и гласови съобщения; изтегляне на снимки, видеоклипове и APK файлове, без да отваряте приложението на телефона.</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section-title">ОБАЖДАНИЯ</div>
+        <div class="features-grid">
+            <div class="feature-item">
+                <div class="icon-wrapper">📞</div>
+                <div class="feature-text">
+                    <span style="display: block; margin-bottom: 5px;">• Обажданията се задействат директно от звъненето на телефона: име, мелодия на контакта, Отговор / Отхвърляне.</span>
+                    <span style="display: block; margin-bottom: 5px;">• Снимка на контакта на цял екран като фон, бутони на преден план.</span>
+                    <span style="display: block; margin-bottom: 5px;">• По избор: задаване на Solid Rock като приложение за телефон по подразбиране на часовника (продължителност, заглушаване, аудио изход, сила на звука, клавиатура за набиране).</span>
+                    <span style="display: block; margin-bottom: 0px;">• Интеграция на обаждания в WhatsApp с бутони за Отговор / Отхвърляне.</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-title">МЕЛОДИИ И СИЛА НА ЗВУКА</div>
+        <div class="features-grid">
+            <div class="feature-item">
+                <div class="icon-wrapper">🎵</div>
+                <div class="feature-text">
+                    <span style="display: block; margin-bottom: 5px;">• Мелодии за отделни приложения, контакти и обаждания; синхронизиране с телефонния указател; собствени аудиофайлове до 10 MB.</span>
+                    <span style="display: block; margin-bottom: 5px;">• Специална вибрация, режим за нощна тишина, спазване на режима „Не безпокойте“ на телефона.</span>
+                    <span style="display: block; margin-bottom: 0px;">• Четири регулатора на силата на звука: известия, обаждания, четене на глас и аларми на часовника (също така увеличава силата на гласа на асистента).</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-title">КОНТРОЛЕР И УИДЖЕТ</div>
+        <div class="features-grid">
+            <div class="feature-item">
+                <div class="icon-wrapper">📱</div>
+                <div class="feature-text">
+                    <span style="display: block; margin-bottom: 5px;">• Номерирано меню с разгъващи се подменюта (a., b., c.); блок СТАТУС, показващ версиите за часовника и телефона.</span>
+                    <span style="display: block; margin-bottom: 5px;">• Пълна страница с разрешения: докоснете всеки ред с ✓/✗, за да отидете директно в системните настройки.</span>
+                    <span style="display: block; margin-bottom: 0px;">• Уижет за телефон: статус на батерията на часовника, статус на акаунти в WhatsApp/Telegram, следващ будилник, „Намери часовника“, скорост на текста и сила на звука.</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-title">ДРУГИ ФУНКЦИИ</div>
+        <div class="features-grid">
+            <div class="feature-item">
+                <div class="icon-wrapper">🚀</div>
+                <div class="feature-text">
+                    <span style="display: block; margin-bottom: 5px;">• SR Assistant <span class="badge-full">🔒 FULL</span> : докоснете часа и говорете: съобщения, обаждания, контрол на музиката, таймер, аларми, „отвори приложение...“, въпроси към Google Gemini AI.</span>
+                    <span style="display: block; margin-bottom: 5px;">• Аларми на часовника, конфигурирани от телефона, резервна аларма на телефона, ако часовникът се зарежда, предупреждение за замръзване (измества алармата с 10 минути по-рано, ако температурата е под 0°C), намиране на телефон.</span>
+                    <span style="display: block; margin-bottom: 5px;">• Изглед на времето на цял екран (Текущо · 24 часа · 7 дни) с цветове за нивото на риск; страници Батерия и Здраве (стъпки от полунощ).</span>
+                    <span style="display: block; margin-bottom: 0px;">• Опции FREE и FULL (15 дни безплатен пробен период); незадължителна анонимна статистика; поддръжка на 7 езика.</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-title">ПОЛЕЗНО Е ДА СЕ ЗНАЕ</div>
+        <div class="features-grid">
+            <div class="feature-item">
+                <div class="icon-wrapper">⚠️</div>
+                <div class="feature-text">
+                    <span style="display: block; margin-bottom: 5px;">• Изисква смарт часовник с Wear OS 5 или по-нова версия и Android смартфон.</span>
+                    <span style="display: block; margin-bottom: 5px;">• След актуализация до версия 212 приложете отново циферблата (превключете на друг и след това се върнете на Solid Rock).</span>
+                    <span style="display: block; margin-bottom: 0px;">• Директната интеграция на WhatsApp е неофициална: WhatsApp може временно да блокира номера.</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-title">ВЕРСИЯ FREE И ВЕРСИЯ FULL</div>
+        <div class="features-grid" style="padding: 10px; background: transparent; border: none; box-shadow: none;">
+            <img src="tabella_free_full.png" alt="Сравнение на версиите FREE и FULL" style="width: 100%; height: auto; border-radius: 20px; display: block; border: 1px solid var(--card-border); box-shadow: 0 15px 35px rgba(0,0,0,0.4);">
+        </div>
+
+        <a href="https://t.me" class="main-cta" target="_blank">
+            📥 Изтегляне на APK на български (Чат за поддръжка)
+        </a>
+
+        <a href="https://t.me" class="pdf-cta" target="_blank">
+            📄 Отваряне на пълното ръководство (PDF)
+        </a>
+
+        <a href="https://t.me" class="secondary-cta" target="_blank">
+            🌐 Посетете главния Telegram хаб
+        </a>
+
+        <footer>
+            <p>© Solid Rock Ecosystem. Лицензът се активира за чаша кафе.<br>Всички права запазени.</p>
+        </footer>
+    </div>
+
+</body>
+</html>
 
