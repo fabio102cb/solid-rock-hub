@@ -5,6 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Solid Rock - Wear OS Hub</title>
     <style>
+                /* Selettore Lingue Moderno in Alto a Destra */
+        .lang-selector-container { width: 100%; max-width: 550px; display: flex; justify-content: flex-end; margin-bottom: 15px; position: relative; z-index: 9999 !important; }
+        .lang-dropdown { position: relative; display: inline-block; }
+        .lang-dropbtn { background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.15); color: var(--text-main); padding: 10px 16px; font-size: 0.9rem; font-weight: 600; border-radius: 14px; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: background 0.2s; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+        .lang-dropbtn:hover { background: rgba(255, 255, 255, 0.12); }
+        .lang-dropdown-content { display: none; position: absolute; right: 0; background: #0f121d; min-width: 170px; box-shadow: 0 15px 35px rgba(0,0,0,0.6); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 14px; padding: 6px; margin-top: 6px; z-index: 99999 !important; }
+        .lang-dropdown-content a { color: var(--text-main); padding: 10px 12px; text-decoration: none; display: flex; align-items: center; gap: 10px; font-size: 0.9rem; border-radius: 10px; transition: background 0.2s; }
+        .lang-dropdown-content a:hover { background: rgba(255, 255, 255, 0.08); }
+        .lang-dropdown:hover .lang-dropdown-content { display: block; }
+        
+        /* Stili per la tabella di confronto in codice HTML */
+        .comparison-table { width: 100%; border-collapse: collapse; margin-top: 15px; background: rgba(255,255,255,0.01); border-radius: 16px; overflow: hidden; border: 1px solid var(--card-border); }
+        .comparison-table th { padding: 12px; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700; text-align: left; }
+        .comparison-table th.free-th { background: #1e3a8a; color: #fff; }
+        .comparison-table th.full-th { background: #78350f; color: var(--full-color); }
+        .comparison-table td { padding: 14px; font-size: 0.9rem; line-height: 1.4; vertical-align: top; border: 1px solid var(--card-border); width: 50%; text-align: left; }
+        .comparison-table ul { list-style: none; }
+        .comparison-table li { margin-bottom: 8px; display: flex; align-items: flex-start; gap: 6px; color: var(--text-main); }
+        .comparison-table li:last-child { margin-bottom: 0; }
+
         :root {
             --bg-gradient: linear-gradient(135deg, #0b0d12 0%, #131722 100%);
             --accent-color: #2563eb;
